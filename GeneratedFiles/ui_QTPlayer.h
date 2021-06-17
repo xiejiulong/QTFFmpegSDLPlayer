@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'QTPlayer.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.13.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,11 +10,8 @@
 #define UI_QTPLAYER_H
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
@@ -48,7 +45,7 @@ public:
     void setupUi(QWidget *QTPlayerClass)
     {
         if (QTPlayerClass->objectName().isEmpty())
-            QTPlayerClass->setObjectName(QStringLiteral("QTPlayerClass"));
+            QTPlayerClass->setObjectName(QString::fromUtf8("QTPlayerClass"));
         QTPlayerClass->resize(800, 600);
         QTPlayerClass->setStyleSheet(QString::fromUtf8("#openButton:!hover\n"
 "{\n"
@@ -106,77 +103,77 @@ public:
 "	font: 75 8pt \"\351\273\221\344\275\223\";\n"
 "}"));
         openGLWidget = new VideoOpenGLWidget(QTPlayerClass);
-        openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
+        openGLWidget->setObjectName(QString::fromUtf8("openGLWidget"));
         openGLWidget->setGeometry(QRect(0, 0, 800, 600));
         bottemWidget = new QWidget(QTPlayerClass);
-        bottemWidget->setObjectName(QStringLiteral("bottemWidget"));
+        bottemWidget->setObjectName(QString::fromUtf8("bottemWidget"));
         bottemWidget->setGeometry(QRect(0, 520, 800, 80));
         playslider = new QSlider(bottemWidget);
-        playslider->setObjectName(QStringLiteral("playslider"));
+        playslider->setObjectName(QString::fromUtf8("playslider"));
         playslider->setGeometry(QRect(120, 10, 601, 22));
         playslider->setMaximum(999);
         playslider->setOrientation(Qt::Horizontal);
         playButton = new QPushButton(bottemWidget);
-        playButton->setObjectName(QStringLiteral("playButton"));
+        playButton->setObjectName(QString::fromUtf8("playButton"));
         playButton->setGeometry(QRect(400, 40, 31, 28));
         openButton = new QPushButton(bottemWidget);
-        openButton->setObjectName(QStringLiteral("openButton"));
+        openButton->setObjectName(QString::fromUtf8("openButton"));
         openButton->setGeometry(QRect(470, 40, 93, 28));
         volumeSlider = new QSlider(bottemWidget);
-        volumeSlider->setObjectName(QStringLiteral("volumeSlider"));
+        volumeSlider->setObjectName(QString::fromUtf8("volumeSlider"));
         volumeSlider->setGeometry(QRect(590, 50, 160, 22));
         volumeSlider->setMaximum(999);
         volumeSlider->setValue(500);
         volumeSlider->setOrientation(Qt::Horizontal);
         currentContainer = new QWidget(bottemWidget);
-        currentContainer->setObjectName(QStringLiteral("currentContainer"));
+        currentContainer->setObjectName(QString::fromUtf8("currentContainer"));
         currentContainer->setGeometry(QRect(10, 29, 61, 51));
         horizontalLayoutWidget_2 = new QWidget(currentContainer);
-        horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
+        horizontalLayoutWidget_2->setObjectName(QString::fromUtf8("horizontalLayoutWidget_2"));
         horizontalLayoutWidget_2->setGeometry(QRect(10, 10, 51, 21));
         currentLayout = new QHBoxLayout(horizontalLayoutWidget_2);
         currentLayout->setSpacing(6);
         currentLayout->setContentsMargins(11, 11, 11, 11);
-        currentLayout->setObjectName(QStringLiteral("currentLayout"));
+        currentLayout->setObjectName(QString::fromUtf8("currentLayout"));
         currentLayout->setContentsMargins(0, 0, 0, 0);
         currentHour = new QLabel(horizontalLayoutWidget_2);
-        currentHour->setObjectName(QStringLiteral("currentHour"));
+        currentHour->setObjectName(QString::fromUtf8("currentHour"));
 
         currentLayout->addWidget(currentHour);
 
         currentMinute = new QLabel(horizontalLayoutWidget_2);
-        currentMinute->setObjectName(QStringLiteral("currentMinute"));
+        currentMinute->setObjectName(QString::fromUtf8("currentMinute"));
 
         currentLayout->addWidget(currentMinute);
 
         currentSecond = new QLabel(horizontalLayoutWidget_2);
-        currentSecond->setObjectName(QStringLiteral("currentSecond"));
+        currentSecond->setObjectName(QString::fromUtf8("currentSecond"));
 
         currentLayout->addWidget(currentSecond);
 
         totalContainer = new QWidget(bottemWidget);
-        totalContainer->setObjectName(QStringLiteral("totalContainer"));
+        totalContainer->setObjectName(QString::fromUtf8("totalContainer"));
         totalContainer->setGeometry(QRect(730, 10, 51, 41));
         horizontalLayoutWidget = new QWidget(totalContainer);
-        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
+        horizontalLayoutWidget->setObjectName(QString::fromUtf8("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(0, 10, 51, 21));
         totalLayout = new QHBoxLayout(horizontalLayoutWidget);
         totalLayout->setSpacing(6);
         totalLayout->setContentsMargins(11, 11, 11, 11);
-        totalLayout->setObjectName(QStringLiteral("totalLayout"));
+        totalLayout->setObjectName(QString::fromUtf8("totalLayout"));
         totalLayout->setContentsMargins(0, 0, 0, 0);
         totalHour = new QLabel(horizontalLayoutWidget);
-        totalHour->setObjectName(QStringLiteral("totalHour"));
+        totalHour->setObjectName(QString::fromUtf8("totalHour"));
 
         totalLayout->addWidget(totalHour);
 
         totalMinute = new QLabel(horizontalLayoutWidget);
-        totalMinute->setObjectName(QStringLiteral("totalMinute"));
+        totalMinute->setObjectName(QString::fromUtf8("totalMinute"));
 
         totalLayout->addWidget(totalMinute);
 
         totalSecond = new QLabel(horizontalLayoutWidget);
-        totalSecond->setObjectName(QStringLiteral("totalSecond"));
+        totalSecond->setObjectName(QString::fromUtf8("totalSecond"));
 
         totalLayout->addWidget(totalSecond);
 
@@ -193,15 +190,15 @@ public:
 
     void retranslateUi(QWidget *QTPlayerClass)
     {
-        QTPlayerClass->setWindowTitle(QApplication::translate("QTPlayerClass", "QTPlayer", Q_NULLPTR));
+        QTPlayerClass->setWindowTitle(QCoreApplication::translate("QTPlayerClass", "QTPlayer", nullptr));
         playButton->setText(QString());
-        openButton->setText(QApplication::translate("QTPlayerClass", "open", Q_NULLPTR));
-        currentHour->setText(QApplication::translate("QTPlayerClass", "0:", Q_NULLPTR));
-        currentMinute->setText(QApplication::translate("QTPlayerClass", "0:", Q_NULLPTR));
-        currentSecond->setText(QApplication::translate("QTPlayerClass", "0", Q_NULLPTR));
-        totalHour->setText(QApplication::translate("QTPlayerClass", "0:", Q_NULLPTR));
-        totalMinute->setText(QApplication::translate("QTPlayerClass", "0:", Q_NULLPTR));
-        totalSecond->setText(QApplication::translate("QTPlayerClass", "0", Q_NULLPTR));
+        openButton->setText(QCoreApplication::translate("QTPlayerClass", "open", nullptr));
+        currentHour->setText(QCoreApplication::translate("QTPlayerClass", "0:", nullptr));
+        currentMinute->setText(QCoreApplication::translate("QTPlayerClass", "0:", nullptr));
+        currentSecond->setText(QCoreApplication::translate("QTPlayerClass", "0", nullptr));
+        totalHour->setText(QCoreApplication::translate("QTPlayerClass", "0:", nullptr));
+        totalMinute->setText(QCoreApplication::translate("QTPlayerClass", "0:", nullptr));
+        totalSecond->setText(QCoreApplication::translate("QTPlayerClass", "0", nullptr));
     } // retranslateUi
 
 };

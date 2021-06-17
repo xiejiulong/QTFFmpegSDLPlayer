@@ -3,13 +3,11 @@
 
 #include <queue>
 
-#include <SDL.h>
 #include <QWaitCondition>
 #include <QMutex>
 extern "C"{
-
+#include <SDL2/SDL.h>
 #include <libavcodec\avcodec.h>
-
 }
 
 class PacketQueue

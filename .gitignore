@@ -1,0 +1,71 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.dylib
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+
+# Executables
+*.exe
+*.app
+
+Log/
+*.~cpp
+*.~h
+*.~dfm
+*.~ddp
+*.~bpr
+*.ddp
+*.tds
+/*.log
+/objs
+readme
+.vs
+*.user
+bin
+*.aps
+moc_*.*
+*.autosave
+GeneratedFiles
+build-camel_ui-Desktop-Debug
+build-camel_ui-Desktop-Debug
+temp
+*.tlog
+*.ilk
+*.pdb
+*.json
+*.log
+*.idb
+*.res
+/project/Bef2.0_demo/AdsTTLVDemo/Debug
+/project/Bef2.0_demo/AdsTTLVDemo/AdsTTLVDemo/Debug
+/project/Bef2.0_demo/AdsTTLVDemo/AdsTTLVDemo/Release
+*.exp
+*.dll
+*.lib
+*.ipdb
+*.iobj
+Debug
+Release
+debug_no_ads
+doc
+*.rdb
+/output/cpy
+/docs/《WebRTC权威指南（原书第3版）》.pdf
