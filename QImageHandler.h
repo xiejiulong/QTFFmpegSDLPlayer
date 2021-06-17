@@ -3,17 +3,16 @@
 class QImageHandler
 {
 public:
-	QImage *getHandleImage() {
+	QImage* getHandleImage() {
 		return desImage;
 	}
-	QImageHandler(QImage *& srcImage);
+	QImageHandler(QImage*& srcImage);
 	~QImageHandler();
 	void mirrorUpAndDown();
 	void mirrorLeftAndRight();
 	void gray2RGB();
 	void rgb2Gray();
 private:
-	QImage *desImage;
-	uchar *buf;
+	QImage* desImage;
+	uchar* buf;
 };
-

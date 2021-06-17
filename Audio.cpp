@@ -6,7 +6,7 @@ extern "C" {
 }
 static int audioVolume = 64;
 Audio::Audio()
-{ 
+{
 	audioContext = nullptr;
 	streamIndex = -1;
 	stream = nullptr;
@@ -19,7 +19,7 @@ Audio::Audio()
 //************************************
 // Method:    r2d
 // FullName:  r2d
-// Access:    public static 
+// Access:    public static
 // Returns:   double
 // Qualifier:计算时间基准
 // Parameter: AVRational r
@@ -40,7 +40,7 @@ Audio::~Audio()
 //************************************
 // Method:    audioClose
 // FullName:  Audio::audioClose
-// Access:    public 
+// Access:    public
 // Returns:   bool
 // Qualifier:关闭音频
 //************************************
@@ -52,7 +52,7 @@ bool Audio::audioClose() {
 //************************************
 // Method:    audioPlay
 // FullName:  Audio::audioPlay
-// Access:    public 
+// Access:    public
 // Returns:   bool
 // Qualifier:播放音频
 //************************************
@@ -71,14 +71,14 @@ bool Audio::audioPlay()
 		return false;
 	}
 	SDL_PauseAudio(0); // playing
-	
+
 	return true;
 }
 
 //************************************
 // Method:    getCurrentAudioClock
 // FullName:  Audio::getCurrentAudioClock
-// Access:    public 
+// Access:    public
 // Returns:   double
 // Qualifier:获取当前音频时钟
 //************************************
@@ -93,7 +93,7 @@ double Audio::getCurrentAudioClock()
 //************************************
 // Method:    getStreamIndex
 // FullName:  Audio::getStreamIndex
-// Access:    public 
+// Access:    public
 // Returns:   int
 // Qualifier:获取流下标
 //************************************
@@ -105,7 +105,7 @@ int Audio::getStreamIndex()
 //************************************
 // Method:    setStreamIndex
 // FullName:  Audio::setStreamIndex
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置流下标
 // Parameter: const int streamIndex
@@ -118,7 +118,7 @@ void Audio::setStreamIndex(const int streamIndex)
 //************************************
 // Method:    getAudioQueueSize
 // FullName:  Audio::getAudioQueueSize
-// Access:    public 
+// Access:    public
 // Returns:   int
 // Qualifier:获取音频队列大小
 //************************************
@@ -130,7 +130,7 @@ int Audio::getAudioQueueSize()
 //************************************
 // Method:    enqueuePacket
 // FullName:  Audio::enqueuePacket
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:音频包入队
 // Parameter: const AVPacket pkt
@@ -143,7 +143,7 @@ void Audio::enqueuePacket(const AVPacket pkt)
 //************************************
 // Method:    dequeuePacket
 // FullName:  Audio::dequeuePacket
-// Access:    public 
+// Access:    public
 // Returns:   AVPacket
 // Qualifier:音频出队
 //************************************
@@ -155,7 +155,7 @@ AVPacket Audio::dequeuePacket()
 //************************************
 // Method:    getAudioBuff
 // FullName:  Audio::getAudioBuff
-// Access:    public 
+// Access:    public
 // Returns:   QT_NAMESPACE::uint8_t*
 // Qualifier:获取音频缓冲
 //************************************
@@ -167,12 +167,12 @@ uint8_t* Audio::getAudioBuff()
 //************************************
 // Method:    setAudioBuff
 // FullName:  Audio::setAudioBuff
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置音频缓冲
 // Parameter: uint8_t * & audioBuff
 //************************************
-void Audio::setAudioBuff(uint8_t*&  audioBuff)
+void Audio::setAudioBuff(uint8_t*& audioBuff)
 {
 	this->audioBuff = audioBuff;
 }
@@ -180,7 +180,7 @@ void Audio::setAudioBuff(uint8_t*&  audioBuff)
 //************************************
 // Method:    getAudioBuffSize
 // FullName:  Audio::getAudioBuffSize
-// Access:    public 
+// Access:    public
 // Returns:   uint32_t
 // Qualifier:获取音频缓冲大小
 //************************************
@@ -192,7 +192,7 @@ uint32_t Audio::getAudioBuffSize()
 //************************************
 // Method:    setAudioBuffSize
 // FullName:  Audio::setAudioBuffSize
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier: 设置缓冲大小
 // Parameter: uint32_t audioBuffSize
@@ -205,7 +205,7 @@ void Audio::setAudioBuffSize(uint32_t audioBuffSize)
 //************************************
 // Method:    getAudioBuffIndex
 // FullName:  Audio::getAudioBuffIndex
-// Access:    public 
+// Access:    public
 // Returns:   uint32_t
 // Qualifier:获取音频缓冲下标
 //************************************
@@ -217,7 +217,7 @@ uint32_t Audio::getAudioBuffIndex()
 //************************************
 // Method:    setAudioBuffIndex
 // FullName:  Audio::setAudioBuffIndex
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置音频缓冲的下标
 // Parameter: uint32_t audioBuffIndex
@@ -230,7 +230,7 @@ void Audio::setAudioBuffIndex(uint32_t audioBuffIndex)
 //************************************
 // Method:    getAudioClock
 // FullName:  Audio::getAudioClock
-// Access:    public 
+// Access:    public
 // Returns:   double
 // Qualifier:获取音频时钟
 //************************************
@@ -242,12 +242,12 @@ double Audio::getAudioClock()
 //************************************
 // Method:    setAudioClock
 // FullName:  Audio::setAudioClock
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置音频时钟
 // Parameter: const double & audioClock
 //************************************
-void Audio::setAudioClock(const double & audioClock)
+void Audio::setAudioClock(const double& audioClock)
 {
 	this->audioClock = audioClock;
 }
@@ -255,11 +255,11 @@ void Audio::setAudioClock(const double & audioClock)
 //************************************
 // Method:    getStream
 // FullName:  Audio::getStream
-// Access:    public 
+// Access:    public
 // Returns:   AVStream *
 // Qualifier:获取音频流
 //************************************
-AVStream * Audio::getStream()
+AVStream* Audio::getStream()
 {
 	return this->stream;
 }
@@ -267,12 +267,12 @@ AVStream * Audio::getStream()
 //************************************
 // Method:    setStream
 // FullName:  Audio::setStream
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置音频流
 // Parameter: AVStream * & stream
 //************************************
-void Audio::setStream(AVStream *& stream)
+void Audio::setStream(AVStream*& stream)
 {
 	this->stream = stream;
 }
@@ -280,11 +280,11 @@ void Audio::setStream(AVStream *& stream)
 //************************************
 // Method:    getAVCodecContext
 // FullName:  Audio::getAVCodecContext
-// Access:    public 
+// Access:    public
 // Returns:   AVCodecContext *
 // Qualifier:获取解码器上下文
 //************************************
-AVCodecContext * Audio::getAVCodecContext()
+AVCodecContext* Audio::getAVCodecContext()
 {
 	return this->audioContext;
 }
@@ -292,12 +292,12 @@ AVCodecContext * Audio::getAVCodecContext()
 //************************************
 // Method:    setAVCodecContext
 // FullName:  Audio::setAVCodecContext
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置音频解码器上下文
 // Parameter: AVCodecContext * audioContext
 //************************************
-void Audio::setAVCodecContext(AVCodecContext * audioContext)
+void Audio::setAVCodecContext(AVCodecContext* audioContext)
 {
 	this->audioContext = audioContext;
 }
@@ -305,7 +305,7 @@ void Audio::setAVCodecContext(AVCodecContext * audioContext)
 //************************************
 // Method:    getIsPlaying
 // FullName:  Audio::getIsPlaying
-// Access:    public 
+// Access:    public
 // Returns:   bool
 // Qualifier:获取播放状态
 //************************************
@@ -317,7 +317,7 @@ bool Audio::getIsPlaying()
 //************************************
 // Method:    setPlaying
 // FullName:  Audio::setPlaying
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置播放状态
 // Parameter: bool isPlaying
@@ -330,7 +330,7 @@ void Audio::setPlaying(bool isPlaying)
 //************************************
 // Method:    clearPacket
 // FullName:  Audio::clearPacket
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:清理音频包队列
 //************************************
@@ -342,7 +342,7 @@ void Audio::clearPacket()
 //************************************
 // Method:    setVolume
 // FullName:  Audio::setVolume
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier: 设置音量
 // Parameter: int volume
@@ -354,8 +354,8 @@ void Audio::setVolume(int volume) {
 /**
 * 向设备发送audio数据的回调函数
 */
-void audioCallback(void* userdata, Uint8 *stream, int len) {
-	Audio  *audio = Media::getInstance()->audio;
+void audioCallback(void* userdata, Uint8* stream, int len) {
+	Audio* audio = Media::getInstance()->audio;
 
 	SDL_memset(stream, 0, len);
 
@@ -385,18 +385,18 @@ void audioCallback(void* userdata, Uint8 *stream, int len) {
 
 		len -= len1;
 		stream += len1;
-		audio->setAudioBuffIndex(audio->getAudioBuffIndex()+len1);
+		audio->setAudioBuffIndex(audio->getAudioBuffIndex() + len1);
 	}
 }
 
 /**
 * 解码Avpacket中的数据填充到缓冲空间
 */
-int audioDecodeFrame(Audio*audio, uint8_t *audioBuffer, int bufferSize) {
-	AVFrame *frame = av_frame_alloc();
+int audioDecodeFrame(Audio* audio, uint8_t* audioBuffer, int bufferSize) {
+	AVFrame* frame = av_frame_alloc();
 	int data_size = 0;
 	AVPacket pkt = audio->dequeuePacket();
-	SwrContext *swr_ctx = nullptr;
+	SwrContext* swr_ctx = nullptr;
 	static double clock = 0;
 
 	/*if (quit)
@@ -404,8 +404,8 @@ int audioDecodeFrame(Audio*audio, uint8_t *audioBuffer, int bufferSize) {
 	if (pkt.size <= 0)
 	{
 		return -1;
-	}	
-	 
+	}
+
 	if (pkt.pts != AV_NOPTS_VALUE)
 	{
 		if (audio->getStream() == nullptr)
@@ -421,7 +421,7 @@ int audioDecodeFrame(Audio*audio, uint8_t *audioBuffer, int bufferSize) {
 	ret = avcodec_receive_frame(audio->getAVCodecContext(), frame);
 	if (ret < 0 && ret != AVERROR_EOF)
 		return -1;
-	int p = (frame->pts *r2d(audio->getStream()->time_base)) * 1000;
+	int p = (frame->pts * r2d(audio->getStream()->time_base)) * 1000;
 	Media::getInstance()->pts = p;
 	// 设置通道数或channel_layout
 	if (frame->channels > 0 && frame->channel_layout == 0)
@@ -446,7 +446,7 @@ int audioDecodeFrame(Audio*audio, uint8_t *audioBuffer, int bufferSize) {
 	// 每秒钟音频播放的字节数 sample_rate * channels * sample_format(一个sample占用的字节数)
 	if (audio->getStream()->codec == nullptr)
 		return -1;
-	audio->setAudioClock(audio->getAudioClock()+static_cast<double>(data_size) / (2 * audio->getStream()->codec->channels * audio->getStream()->codec->sample_rate));
+	audio->setAudioClock(audio->getAudioClock() + static_cast<double>(data_size) / (2 * audio->getStream()->codec->channels * audio->getStream()->codec->sample_rate));
 	av_frame_free(&frame);
 	swr_free(&swr_ctx);
 	return data_size;

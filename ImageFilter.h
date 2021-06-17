@@ -23,16 +23,16 @@ struct ColorTask {
 class ImageFilter
 {
 public:
-	QImage * filter(QImage *&img);
+	QImage* filter(QImage*& img);
 	void addTask(XTask task);
 	void addColorTask(ColorTask task);
-	QImage * filterColor(QImage *&img);
+	QImage* filterColor(QImage*& img);
 	void clear();
-	static ImageFilter * getInstance() {
+	static ImageFilter* getInstance() {
 		static ImageFilter filter;
 		return &filter;
 	}
-	
+
 	~ImageFilter();
 private:
 	ImageFilter();
@@ -40,4 +40,3 @@ private:
 	std::vector<ColorTask> colorTasks;
 	QMutex mutex;
 };
-

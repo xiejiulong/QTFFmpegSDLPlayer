@@ -1,11 +1,10 @@
-
 #pragma once
 
 #include <queue>
 
 #include <QWaitCondition>
 #include <QMutex>
-extern "C"{
+extern "C" {
 #include <SDL2/SDL.h>
 #include <libavcodec\avcodec.h>
 }
@@ -24,8 +23,4 @@ private:
 	Uint32    size;
 	QMutex mutex;
 	QWaitCondition cond;
-
-	
 };
-
- 

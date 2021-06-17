@@ -11,7 +11,7 @@ const static long long   MAX_VIDEOQ_SIZE = (5 * 256 * 1024);//最大视频包大小（队
 //************************************
 // Method:    r2d
 // FullName:  r2d
-// Access:    public static 
+// Access:    public static
 // Returns:   double
 // Qualifier: 时间基准计算
 // Parameter: AVRational r
@@ -33,11 +33,11 @@ Media::Media()
 //************************************
 // Method:    config
 // FullName:  Media::config
-// Access:    public 
+// Access:    public
 // Returns:   Media::Media *
 // Qualifier:配置视频
 //************************************
-Media *  Media::config() {
+Media* Media::config() {
 	close();
 	QMutexLocker locker(&mutex);
 	char errorbuf[1024] = { 0 };
@@ -69,15 +69,15 @@ Media *  Media::config() {
 	}
 
 	// 设置音频状态
-	AVCodec *pCodec = avcodec_find_decoder(pFormatCtx->streams[audio->getStreamIndex()]->codec->codec_id);
+	AVCodec* pCodec = avcodec_find_decoder(pFormatCtx->streams[audio->getStreamIndex()]->codec->codec_id);
 	if (!pCodec) {
 		return nullptr;
 	}
- 
+
 	audio->setStream(pFormatCtx->streams[audio->getStreamIndex()]);
 
 	audio->setAVCodecContext(avcodec_alloc_context3(pCodec));
-	
+
 	if (avcodec_copy_context(audio->getAVCodecContext(), pFormatCtx->streams[audio->getStreamIndex()]->codec) != 0) {
 		return nullptr;
 	}
@@ -85,22 +85,22 @@ Media *  Media::config() {
 	avcodec_open2(audio->getAVCodecContext(), pCodec, nullptr);
 
 	// 设置视频状态
-	AVCodec *pVCodec = avcodec_find_decoder(pFormatCtx->streams[video->getStreamIndex()]->codec->codec_id);
+	AVCodec* pVCodec = avcodec_find_decoder(pFormatCtx->streams[video->getStreamIndex()]->codec->codec_id);
 	if (!pVCodec) {
 		return nullptr;
 	}
 
 	video->setVideoStream(pFormatCtx->streams[video->getStreamIndex()]);
-	 
+
 	video->setAVCodecCotext(avcodec_alloc_context3(pVCodec));
 	if (avcodec_copy_context(video->getAVCodecCotext(), pFormatCtx->streams[video->getStreamIndex()]->codec) != 0) {
 		return nullptr;
 	}
-	
+
 	avcodec_open2(video->getAVCodecCotext(), pVCodec, nullptr);
 
 	video->setFrameTimer(static_cast<double>(av_gettime()) / 1000000.0);//设置初始视频帧时间用于音视同步
-	video->setFrameLastDelay(40e-3) ;//计算时间，TODO*/
+	video->setFrameLastDelay(40e-3);//计算时间，TODO*/
 	audio->audioPlay();
 	ReadPacketsThread::getInstance()->setPlaying(true);
 	DisplayMediaTimer::getInstance()->setPlay(true);
@@ -110,12 +110,12 @@ Media *  Media::config() {
 //************************************
 // Method:    setMediaFile
 // FullName:  Media::setMediaFile
-// Access:    public 
+// Access:    public
 // Returns:   Media::Media *
 // Qualifier: 设置视频文件
 // Parameter: const char * filename 视频文件名字
 //************************************
-Media * Media::setMediaFile(const char * filename)
+Media* Media::setMediaFile(const char* filename)
 {
 	this->filename = filename;
 	return this;
@@ -124,7 +124,7 @@ Media * Media::setMediaFile(const char * filename)
 //************************************
 // Method:    checkMediaSizeValid
 // FullName:  Media::checkMediaSizeValid
-// Access:    public 
+// Access:    public
 // Returns:   bool
 // Qualifier: 检查视频大小是否合法
 //************************************
@@ -135,13 +135,13 @@ bool Media::checkMediaSizeValid()
 	}
 	Uint32 audioSize = this->audio->getAudioQueueSize();
 	Uint32 videoSize = this->video->getVideoQueueSize();
-	return (audioSize> MAX_AUDIOQ_SIZE || videoSize> MAX_VIDEOQ_SIZE);
+	return (audioSize > MAX_AUDIOQ_SIZE || videoSize > MAX_VIDEOQ_SIZE);
 }
 
 //************************************
 // Method:    getVideoStreamIndex
 // FullName:  Media::getVideoStreamIndex
-// Access:    public 
+// Access:    public
 // Returns:   int
 // Qualifier: 获取视频流信息
 //************************************
@@ -153,7 +153,7 @@ int Media::getVideoStreamIndex()
 //************************************
 // Method:    getAudioStreamIndex
 // FullName:  Media::getAudioStreamIndex
-// Access:    public 
+// Access:    public
 // Returns:   int
 // Qualifier:获取音频流下标
 //************************************
@@ -165,25 +165,25 @@ int Media::getAudioStreamIndex()
 //************************************
 // Method:    enqueueVideoPacket
 // FullName:  Media::enqueueVideoPacket
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:视频包入队
 // Parameter: const AVPacket & packet
 //************************************
-void Media::enqueueVideoPacket(const AVPacket &packet)
-{	
+void Media::enqueueVideoPacket(const AVPacket& packet)
+{
 	video->enqueuePacket(packet);
 }
 
 //************************************
 // Method:    enqueueAudioPacket
 // FullName:  Media::enqueueAudioPacket
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:音频包入队
 // Parameter: const AVPacket & packet
 //************************************
-void Media::enqueueAudioPacket(const AVPacket &packet)
+void Media::enqueueAudioPacket(const AVPacket& packet)
 {
 	audio->enqueuePacket(packet);
 }
@@ -191,7 +191,7 @@ void Media::enqueueAudioPacket(const AVPacket &packet)
 //************************************
 // Method:    startAudioPlay
 // FullName:  Media::startAudioPlay
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier: 音频开始播放
 //************************************
@@ -203,37 +203,36 @@ void Media::startAudioPlay()
 //************************************
 // Method:    getAVFormatContext
 // FullName:  Media::getAVFormatContext
-// Access:    public 
+// Access:    public
 // Returns:   AVFormatContext *
 // Qualifier:获取音视频文件格式上下文
 //************************************
-AVFormatContext * Media::getAVFormatContext()
+AVFormatContext* Media::getAVFormatContext()
 {
 	QMutexLocker locker(&mutex);
-	AVFormatContext * p = pFormatCtx;	
+	AVFormatContext* p = pFormatCtx;
 	return p;
 }
 
 //************************************
 // Method:    close
 // FullName:  Media::close
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:关闭，回收资源
 //************************************
 void Media::close()
 {
 	QMutexLocker locker(&mutex);
-	audio->audioClose();	
+	audio->audioClose();
 	audio->clearPacket();
-	video->clearFrames(); 
+	video->clearFrames();
 	video->clearPackets();
 
 	if (pFormatCtx) {
 		avformat_close_input(&pFormatCtx);
 		pFormatCtx = nullptr;
 	}
-	 
 
 	if (video->swsContext)
 	{
@@ -242,20 +241,18 @@ void Media::close()
 	}
 	ReadPacketsThread::getInstance()->setPlaying(false);
 	DisplayMediaTimer::getInstance()->setPlay(false);
- 
 }
 
 Media::~Media()
 {
 	QMutexLocker locker(&mutex);
-	if (audio != nullptr){
+	if (audio != nullptr) {
 		delete audio;
 		audio = nullptr;
 	}
-		
+
 	if (video != nullptr) {
-        delete video;	
+		delete video;
 		//video = nullptr;
 	}
-		 
 }

@@ -10,7 +10,6 @@ Video::Video()
 	videoPackets = new PacketQueue;
 }
 
-
 Video::~Video()
 {
 	QMutexLocker locker(&mutex);
@@ -18,13 +17,12 @@ Video::~Video()
 	isExit = true;
 	locker.unlock();
 	wait();
-	
 }
 
 //************************************
 // Method:    getStreamIndex
 // FullName:  Video::getStreamIndex
-// Access:    public 
+// Access:    public
 // Returns:   int
 // Qualifier: 获取流下标
 //************************************
@@ -36,12 +34,12 @@ int Video::getStreamIndex()
 //************************************
 // Method:    setStreamIndex
 // FullName:  Video::setStreamIndex
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置流下标
 // Parameter: const int & streamIndex
 //************************************
-void Video::setStreamIndex(const int &streamIndex)
+void Video::setStreamIndex(const int& streamIndex)
 {
 	this->streamIndex = streamIndex;
 }
@@ -49,7 +47,7 @@ void Video::setStreamIndex(const int &streamIndex)
 //************************************
 // Method:    getVideoQueueSize
 // FullName:  Video::getVideoQueueSize
-// Access:    public 
+// Access:    public
 // Returns:   int
 // Qualifier:获取视频队列大小
 //************************************
@@ -61,12 +59,12 @@ int Video::getVideoQueueSize()
 //************************************
 // Method:    enqueuePacket
 // FullName:  Video::enqueuePacket
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier: 包入队
 // Parameter: const AVPacket & pkt
 //************************************
-void Video::enqueuePacket(const AVPacket &pkt)
+void Video::enqueuePacket(const AVPacket& pkt)
 {
 	videoPackets->enQueue(pkt);
 }
@@ -74,11 +72,11 @@ void Video::enqueuePacket(const AVPacket &pkt)
 //************************************
 // Method:    dequeueFrame
 // FullName:  Video::dequeueFrame
-// Access:    public 
+// Access:    public
 // Returns:   AVFrame *
 // Qualifier: 帧队列出队
 //************************************
-AVFrame * Video::dequeueFrame()
+AVFrame* Video::dequeueFrame()
 {
 	return frameQueue.deQueue();
 }
@@ -86,13 +84,13 @@ AVFrame * Video::dequeueFrame()
 //************************************
 // Method:    synchronizeVideo
 // FullName:  Video::synchronizeVideo
-// Access:    public 
+// Access:    public
 // Returns:   double
 // Qualifier: 计算同步视频的播放时间
 // Parameter: AVFrame * & srcFrame
 // Parameter: double & pts
 //************************************
-double Video::synchronizeVideo(AVFrame *&srcFrame, double &pts)
+double Video::synchronizeVideo(AVFrame*& srcFrame, double& pts)
 {
 	double frameDelay;
 	if (pts != 0)
@@ -108,11 +106,11 @@ double Video::synchronizeVideo(AVFrame *&srcFrame, double &pts)
 //************************************
 // Method:    getVideoStream
 // FullName:  Video::getVideoStream
-// Access:    public 
+// Access:    public
 // Returns:   AVStream *
 // Qualifier: 获取视频流
 //************************************
-AVStream * Video::getVideoStream()
+AVStream* Video::getVideoStream()
 {
 	return stream;
 }
@@ -120,12 +118,12 @@ AVStream * Video::getVideoStream()
 //************************************
 // Method:    setVideoStream
 // FullName:  Video::setVideoStream
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置视频流
 // Parameter: AVStream * & videoStream
 //************************************
-void Video::setVideoStream(AVStream *& videoStream)
+void Video::setVideoStream(AVStream*& videoStream)
 {
 	this->stream = videoStream;
 }
@@ -133,11 +131,11 @@ void Video::setVideoStream(AVStream *& videoStream)
 //************************************
 // Method:    getAVCodecCotext
 // FullName:  Video::getAVCodecCotext
-// Access:    public 
+// Access:    public
 // Returns:   AVCodecContext *
 // Qualifier:获取视频解码器上下文
 //************************************
-AVCodecContext * Video::getAVCodecCotext()
+AVCodecContext* Video::getAVCodecCotext()
 {
 	return this->videoContext;
 }
@@ -145,12 +143,12 @@ AVCodecContext * Video::getAVCodecCotext()
 //************************************
 // Method:    setAVCodecCotext
 // FullName:  Video::setAVCodecCotext
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置视频解码器上下文
 // Parameter: AVCodecContext * avCodecContext
 //************************************
-void Video::setAVCodecCotext(AVCodecContext * avCodecContext)
+void Video::setAVCodecCotext(AVCodecContext* avCodecContext)
 {
 	this->videoContext = avCodecContext;
 }
@@ -158,27 +156,26 @@ void Video::setAVCodecCotext(AVCodecContext * avCodecContext)
 //************************************
 // Method:    setFrameTimer
 // FullName:  Video::setFrameTimer
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置帧时间
 // Parameter: const double & frameTimer
 //************************************
-void Video::setFrameTimer(const double & frameTimer)
+void Video::setFrameTimer(const double& frameTimer)
 {
 	this->frameTimer = frameTimer;
 }
 
-
 //************************************
 // Method:    run
 // FullName:  Video::run
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:视频读帧线程处理函数
 //************************************
 void Video::run()
 {
-	 AVFrame * frame = av_frame_alloc();
+	AVFrame* frame = av_frame_alloc();
 	double pts;
 	AVPacket pkt;
 	while (!isExit)
@@ -186,9 +183,9 @@ void Video::run()
 		QMutexLocker locker(&mutex);
 		if (frameQueue.getQueueSize() >= FrameQueue::capacity) {//视频帧多于30帧就等待消费
 			locker.unlock();
-            msleep(100);
+			msleep(100);
 			continue;
-		}			
+		}
 		if (videoPackets->getPacketSize() == 0) {//没帧等待帧入队
 			locker.unlock();
 			msleep(100);
@@ -199,17 +196,17 @@ void Video::run()
 		if (ret < 0 && ret != AVERROR(EAGAIN) && ret != AVERROR_EOF) {
 			continue;
 		}
-			
+
 		ret = avcodec_receive_frame(videoContext, frame);
 		if (ret < 0 && ret != AVERROR_EOF) {
 			continue;
 		}
-			
+
 		if ((pts = av_frame_get_best_effort_timestamp(frame)) == AV_NOPTS_VALUE)
 			pts = 0;
 		pts *= av_q2d(stream->time_base);
 		pts = synchronizeVideo(frame, pts);//同步视频播放时间
-		frame->opaque = &pts;	
+		frame->opaque = &pts;
 		frameQueue.enQueue(frame);//帧入队
 		av_frame_unref(frame);
 	}
@@ -219,7 +216,7 @@ void Video::run()
 //************************************
 // Method:    getFrameTimer
 // FullName:  Video::getFrameTimer
-// Access:    public 
+// Access:    public
 // Returns:   double
 // Qualifier:获取帧时间
 //************************************
@@ -231,12 +228,12 @@ double Video::getFrameTimer()
 //************************************
 // Method:    setFrameLastPts
 // FullName:  Video::setFrameLastPts
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:获取上一帧的播放时间
 // Parameter: const double & frameLastPts
 //************************************
-void Video::setFrameLastPts(const double & frameLastPts)
+void Video::setFrameLastPts(const double& frameLastPts)
 {
 	this->frameLastPts = frameLastPts;
 }
@@ -244,7 +241,7 @@ void Video::setFrameLastPts(const double & frameLastPts)
 //************************************
 // Method:    getFrameLastPts
 // FullName:  Video::getFrameLastPts
-// Access:    public 
+// Access:    public
 // Returns:   double
 // Qualifier:获取上一帧的播放时间
 //************************************
@@ -256,12 +253,12 @@ double Video::getFrameLastPts()
 //************************************
 // Method:    setFrameLastDelay
 // FullName:  Video::setFrameLastDelay
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置上一帧的延时
 // Parameter: const double & frameLastDelay
 //************************************
-void Video::setFrameLastDelay(const double & frameLastDelay)
+void Video::setFrameLastDelay(const double& frameLastDelay)
 {
 	this->frameLastDelay = frameLastDelay;
 }
@@ -269,7 +266,7 @@ void Video::setFrameLastDelay(const double & frameLastDelay)
 //************************************
 // Method:    getFrameLastDelay
 // FullName:  Video::getFrameLastDelay
-// Access:    public 
+// Access:    public
 // Returns:   double
 // Qualifier:获取上一帧延时
 //************************************
@@ -281,12 +278,12 @@ double Video::getFrameLastDelay()
 //************************************
 // Method:    setVideoClock
 // FullName:  Video::setVideoClock
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:设置视频时钟
 // Parameter: const double & videoClock
 //************************************
-void Video::setVideoClock(const double & videoClock)
+void Video::setVideoClock(const double& videoClock)
 {
 	this->videoClock = videoClock;
 }
@@ -294,7 +291,7 @@ void Video::setVideoClock(const double & videoClock)
 //************************************
 // Method:    getVideoClock
 // FullName:  Video::getVideoClock
-// Access:    public 
+// Access:    public
 // Returns:   double
 // Qualifier:获取视频时钟
 //************************************
@@ -306,7 +303,7 @@ double Video::getVideoClock()
 //************************************
 // Method:    getVideoFrameSiez
 // FullName:  Video::getVideoFrameSiez
-// Access:    public 
+// Access:    public
 // Returns:   int
 // Qualifier:获取帧大小
 //************************************
@@ -318,7 +315,7 @@ int Video::getVideoFrameSiez()
 //************************************
 // Method:    clearFrames
 // FullName:  Video::clearFrames
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:清空帧队列
 //************************************
@@ -330,7 +327,7 @@ void Video::clearFrames()
 //************************************
 // Method:    clearPackets
 // FullName:  Video::clearPackets
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:清空包队列
 //************************************

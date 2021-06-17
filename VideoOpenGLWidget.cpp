@@ -5,11 +5,10 @@
 #include <QMatrix>
 
 static QImage* image;
-VideoOpenGLWidget::VideoOpenGLWidget(QWidget *parent)
+VideoOpenGLWidget::VideoOpenGLWidget(QWidget* parent)
 	: QOpenGLWidget(parent)
 {
 	ui.setupUi(this);
-
 }
 
 VideoOpenGLWidget::~VideoOpenGLWidget()
@@ -19,14 +18,14 @@ VideoOpenGLWidget::~VideoOpenGLWidget()
 //************************************
 // Method:    setVideoImage
 // FullName:  VideoOpenGLWidget::setVideoImage
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier: 槽，调用更新函数
 // Parameter: QImage * img
 //************************************
 void VideoOpenGLWidget::setVideoImage(QImage* img) {
 	if (ReadPacketsThread::getInstance()->getIsPlaying()) {
-		image = img;	 
+		image = img;
 		this->update();
 	}
 }
@@ -34,12 +33,12 @@ void VideoOpenGLWidget::setVideoImage(QImage* img) {
 //************************************
 // Method:    paintEvent
 // FullName:  VideoOpenGLWidget::paintEvent
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier: 更新画面
 // Parameter: QPaintEvent * e
 //************************************
-void VideoOpenGLWidget::paintEvent(QPaintEvent *e)
+void VideoOpenGLWidget::paintEvent(QPaintEvent* e)
 {
 	if (image == nullptr)
 		return;
@@ -47,5 +46,5 @@ void VideoOpenGLWidget::paintEvent(QPaintEvent *e)
 	QPainter painter;
 	painter.begin(this);
 	painter.drawImage(QPoint(0, 0), *image);
-	painter.end(); 
+	painter.end();
 }

@@ -9,9 +9,9 @@ class VideoOpenGLWidget : public QOpenGLWidget
 	Q_OBJECT
 
 public:
-	VideoOpenGLWidget(QWidget *parent = Q_NULLPTR);
+	VideoOpenGLWidget(QWidget* parent = Q_NULLPTR);
 	~VideoOpenGLWidget();
-	void paintEvent(QPaintEvent *e);
+	void paintEvent(QPaintEvent* e);
 public slots:
 	void setVideoImage(QImage* img);
 private:

@@ -3,39 +3,38 @@
 #include "FrameQueue.h"
 #include <QThread>
 extern "C" {
-
 #include <libavformat/avformat.h>
 #include<libswscale/swscale.h>
 #include <libswresample/swresample.h>
 }
 
-class Video:public QThread
+class Video :public QThread
 {
 public:
 	Video();
-	~Video();		
+	~Video();
 	void run();
-	double synchronizeVideo(AVFrame *&srcFrame, double &pts);
+	double synchronizeVideo(AVFrame*& srcFrame, double& pts);
 	int getStreamIndex();
-	AVCodecContext * getAVCodecCotext();
-	void enqueuePacket(const AVPacket &pkt);
+	AVCodecContext* getAVCodecCotext();
+	void enqueuePacket(const AVPacket& pkt);
 
-	AVFrame * dequeueFrame();
-	void setStreamIndex(const int &streamIndex);
+	AVFrame* dequeueFrame();
+	void setStreamIndex(const int& streamIndex);
 	int getVideoQueueSize();
-	void setVideoStream(AVStream *& stream);
-	AVStream * getVideoStream();	
-	void setAVCodecCotext(AVCodecContext *avCodecContext);
-	void setFrameTimer(const double &frameTimer);
+	void setVideoStream(AVStream*& stream);
+	AVStream* getVideoStream();
+	void setAVCodecCotext(AVCodecContext* avCodecContext);
+	void setFrameTimer(const double& frameTimer);
 	double getFrameTimer();
-	void setFrameLastPts(const double &frameLastPts);
+	void setFrameLastPts(const double& frameLastPts);
 	double getFrameLastPts();
-	void setFrameLastDelay(const double &frameLastDelay);
+	void setFrameLastDelay(const double& frameLastDelay);
 	double getFrameLastDelay();
-	void setVideoClock(const double &videoClock);
+	void setVideoClock(const double& videoClock);
 	double getVideoClock();
 	int getVideoFrameSiez();
-	SwsContext *swsContext = NULL;
+	SwsContext* swsContext = NULL;
 	void clearFrames();
 	void clearPackets();
 private:
@@ -43,11 +42,10 @@ private:
 	double frameLastPts;
 	double frameLastDelay;
 	double videoClock;
-	PacketQueue *videoPackets;	
+	PacketQueue* videoPackets;
 	FrameQueue frameQueue;
-	AVStream *stream;
+	AVStream* stream;
 	int streamIndex = -1;
 	QMutex mutex;
-	AVCodecContext *videoContext;
+	AVCodecContext* videoContext;
 };
-

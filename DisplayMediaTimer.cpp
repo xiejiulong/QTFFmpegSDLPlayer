@@ -8,13 +8,13 @@ static const double NOSYNC_THRESHOLD = 10.0;//非同步临界值
 //************************************
 // Method:    synchronizeAudioAndVideo
 // FullName:  DisplayMediaTimer::synchronizeAudioAndVideo
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:音视频同步设置
 //************************************
 void DisplayMediaTimer::synchronizeAudioAndVideo()
-{		 
- 	if (!isPlay) {
+{
+	if (!isPlay) {
 		timer->setInterval(20);//还没播放就设置下次检查
 		return;
 	}
@@ -33,26 +33,25 @@ void DisplayMediaTimer::synchronizeAudioAndVideo()
 		lastHeight = imageHeight;
 		lastWidth = imageWidth;
 	}
-	
+
 	if (img == NULL)
 	{
 		if (buf != nullptr) {
 			delete buf;
 			buf = nullptr;
 		}
-		if (format == QImage::Format_ARGB32) {			
-            buf = new uchar[imageWidth*imageHeight * 4];//彩色视频设置
-		    img = new QImage(buf, imageWidth , imageHeight, QImage::Format_ARGB32);
+		if (format == QImage::Format_ARGB32) {
+			buf = new uchar[imageWidth * imageHeight * 4];//彩色视频设置
+			img = new QImage(buf, imageWidth, imageHeight, QImage::Format_ARGB32);
 		}
 		else {
-			buf = new uchar[imageWidth*imageHeight];
+			buf = new uchar[imageWidth * imageHeight];
 			img = new QImage(buf, imageWidth, imageHeight, QImage::Format_Grayscale8);//黑白视频设置
 		}
-		
 	}
-	AVFrame * frame;
+	AVFrame* frame;
 	frame = Media::getInstance()->video->dequeueFrame();
-	
+
 	// 将视频同步到音频上，计算下一帧的延迟时间
 	double current_pts = *(double*)frame->opaque;
 	double delay = current_pts - Media::getInstance()->video->getFrameLastPts();
@@ -70,19 +69,19 @@ void DisplayMediaTimer::synchronizeAudioAndVideo()
 			delay = 0;
 		else if (diff >= threshold) // 快了，加倍delay
 			delay *= 2;
-	}	 
-	Media::getInstance()->video->setFrameTimer(Media::getInstance()->video->getFrameTimer() + delay) ;
- 
+	}
+	Media::getInstance()->video->setFrameTimer(Media::getInstance()->video->getFrameTimer() + delay);
+
 	double actual_delay = Media::getInstance()->video->getFrameTimer() - static_cast<double>(av_gettime()) / 1000000.0;
 	if (actual_delay <= 0.010)
 		actual_delay = 0.010;
 	timer->setInterval(static_cast<int>(actual_delay * 1000 + 0.5));
-	AVCodecContext *videoCtx = Media::getInstance()->video->getVideoStream()->codec;
+	AVCodecContext* videoCtx = Media::getInstance()->video->getVideoStream()->codec;
 	img = ImageFilter::getInstance()->filterColor(img);//色彩过滤
-	uint8_t *data[AV_NUM_DATA_POINTERS] = { 0 };
-	data[0] = (uint8_t *)img->bits();
+	uint8_t* data[AV_NUM_DATA_POINTERS] = { 0 };
+	data[0] = (uint8_t*)img->bits();
 	int linesize[AV_NUM_DATA_POINTERS] = { 0 };
-	
+
 	if (img->format() == QImage::Format_Grayscale8) {//灰度视频
 		Media::getInstance()->video->swsContext = sws_getCachedContext(Media::getInstance()->video->swsContext, videoCtx->width,
 			videoCtx->height,
@@ -92,7 +91,7 @@ void DisplayMediaTimer::synchronizeAudioAndVideo()
 			SWS_BICUBIC,
 			NULL, NULL, NULL
 		);
-		
+
 		linesize[0] = imageWidth;
 	}
 	else {//彩色视频
@@ -107,7 +106,7 @@ void DisplayMediaTimer::synchronizeAudioAndVideo()
 
 		linesize[0] = imageWidth * 4;
 	}
-	
+
 	int h = sws_scale(Media::getInstance()->video->swsContext, frame->data, frame->linesize, 0, videoCtx->height,
 		data,
 		linesize
@@ -123,13 +122,13 @@ void DisplayMediaTimer::synchronizeAudioAndVideo()
 //************************************
 // Method:    DisplayMediaTimer
 // FullName:  DisplayMediaTimer::DisplayMediaTimer
-// Access:    private 
-// Returns:   
+// Access:    private
+// Returns:
 // Qualifier:启动视频定时器
 //************************************
 DisplayMediaTimer::DisplayMediaTimer()
 {
-	buf = new uchar[imageWidth*imageHeight * 4];
+	buf = new uchar[imageWidth * imageHeight * 4];
 	img = new QImage(buf, imageWidth, imageHeight, QImage::Format_ARGB32);
 	timer = new QTimer;
 	connect(timer, SIGNAL(timeout()), this, SLOT(synchronizeAudioAndVideo()));
@@ -139,32 +138,31 @@ DisplayMediaTimer::DisplayMediaTimer()
 //************************************
 // Method:    resetImage
 // FullName:  DisplayMediaTimer::resetImage
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:重置视频大小，窗体最大化最小化时使用
 // Parameter: int width 宽
 // Parameter: int height 高
 //************************************
-void DisplayMediaTimer::resetImage(int width, int height) {	 
+void DisplayMediaTimer::resetImage(int width, int height) {
 	imageWidth = width;
 	imageHeight = height;
 }
 
-
 DisplayMediaTimer::~DisplayMediaTimer()
 {
-	if(img)
-	    delete img;
-	if(buf)
-	    delete buf;
-	if(timer)
-	    delete timer;
+	if (img)
+		delete img;
+	if (buf)
+		delete buf;
+	if (timer)
+		delete timer;
 }
 
 //************************************
 // Method:    setPlay
 // FullName:  DisplayMediaTimer::setPlay
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier: 设置播放状态
 // Parameter: bool isPlaying
@@ -177,7 +175,7 @@ void DisplayMediaTimer::setPlay(bool isPlaying)
 //************************************
 // Method:    isPlaying
 // FullName:  DisplayMediaTimer::isPlaying
-// Access:    public 
+// Access:    public
 // Returns:   bool
 // Qualifier: 获取播放状态
 //************************************

@@ -9,13 +9,13 @@ PacketQueue::PacketQueue()
 
 PacketQueue::~PacketQueue() {
 	QMutexLocker locker(&mutex);
-	isExit = true;	 
+	isExit = true;
 }
 
 //************************************
 // Method:    enQueue
 // FullName:  PacketQueue::enQueue
-// Access:    public 
+// Access:    public
 // Returns:   bool
 // Qualifier:包队列入队
 // Parameter: const AVPacket packet
@@ -32,7 +32,7 @@ bool PacketQueue::enQueue(const AVPacket packet)
 //************************************
 // Method:    deQueue
 // FullName:  PacketQueue::deQueue
-// Access:    public 
+// Access:    public
 // Returns:   AVPacket
 // Qualifier:包队列出队
 //************************************
@@ -40,21 +40,21 @@ AVPacket PacketQueue::deQueue()
 {
 	bool ret = false;
 	AVPacket pkt;
-	QMutexLocker locker(&mutex); 
+	QMutexLocker locker(&mutex);
 	while (true)
 	{
 		if (!queue.empty())
 		{
 			pkt = queue.front();
 			queue.pop();
-			size -= pkt.size;		 			
+			size -= pkt.size;
 			ret = true;
 			break;
-		}	 
+		}
 		else
-		{			
+		{
 			cond.wait(&mutex);
-		} 
+		}
 	}
 	return pkt;
 }
@@ -62,27 +62,27 @@ AVPacket PacketQueue::deQueue()
 //************************************
 // Method:    getPacketSize
 // FullName:  PacketQueue::getPacketSize
-// Access:    public 
+// Access:    public
 // Returns:   Uint32
 // Qualifier:获取包大小
 //************************************
 Uint32 PacketQueue::getPacketSize()
 {
 	QMutexLocker locker(&mutex);
-  	return size;
+	return size;
 }
 
 //************************************
 // Method:    queueFlush
 // FullName:  PacketQueue::queueFlush
-// Access:    public 
+// Access:    public
 // Returns:   void
 // Qualifier:清空队列
 //************************************
 void PacketQueue::queueFlush() {
-	 while (!queue.empty())
-	 {	
-		 AVPacket pkt = deQueue();
-		 av_free_packet(&pkt);		
-	 }
+	while (!queue.empty())
+	{
+		AVPacket pkt = deQueue();
+		av_free_packet(&pkt);
+	}
 }

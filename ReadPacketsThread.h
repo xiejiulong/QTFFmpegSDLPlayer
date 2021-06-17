@@ -5,7 +5,7 @@ class ReadPacketsThread :public QThread
 {
 	Q_OBJECT
 public:
-	static ReadPacketsThread * getInstance() {
+	static ReadPacketsThread* getInstance() {
 		static ReadPacketsThread rpt;
 		return &rpt;
 	}
@@ -22,4 +22,3 @@ private:
 	ReadPacketsThread();
 	bool isPlay = false;
 };
-
