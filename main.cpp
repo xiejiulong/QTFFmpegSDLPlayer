@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 //#undef main
 
-//#include <SDL_main.h>  
+#include <SDL2/SDL_main.h>  
 #pragma comment(lib,"avformat.lib")
 #pragma comment(lib,"avutil.lib")
 #pragma comment(lib,"avcodec.lib")
